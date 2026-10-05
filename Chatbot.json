@@ -1,0 +1,187 @@
+{
+  "name": "Chatbot",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "anees-chat",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "69373688-422d-44cc-acd2-e1e508992238",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "anees-chat-webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "userMessage",
+              "value": "={{ $json.body.message }}",
+              "type": "string"
+            },
+            {
+              "id": "a2",
+              "name": "sessionId",
+              "value": "={{ $json.body.sessionId || 'anonymous' }}",
+              "type": "string"
+            },
+            {
+              "id": "a3",
+              "name": "lang",
+              "value": "={{ $json.body.lang || 'ar' }}",
+              "type": "string"
+            },
+            {
+              "id": "a4",
+              "name": "userName",
+              "value": "={{ $json.body.user?.name || '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7bb81add-44a3-4fce-ae32-aafa71b76afa",
+      "name": "Extract Message",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        256,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"reply\": $json.text || $json.output || \"معلش، حصل مشكلة بسيطة. جرب تاني.\" } }}",
+        "options": {}
+      },
+      "id": "ea1122ef-0f6b-4a41-b7bd-aeb9e407bf97",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        832,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userMessage }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "أنت مساعد منصة أنيس. اسمك مساعد أنيس. بتساعد المدرسين وأولياء الأمور في فهم المنصة واستخدامها.\n\nالمنصة دي بتعمل إيه:\nأنيس منصة مصرية للصحة النفسية للطلاب. بتساعد المدرس يسجل تقييم يومي لسلوك الطالب بأسئلة بسيطة، وبعدين النظام بيحسب درجة ويعمل تقرير يومي وأسبوعي بيتبعت لولي الأمر. في كمان مقالات وفيديوهات إرشادية ولوحة تحكم للمدرس يدير منها الفصول والطلاب.\n\nالخدمات المتاحة:\n- تقييم سلوكي يومي (مشاركة، تعاون، تركيز، مزاج، قلق، سلوك عام)\n- تقرير أسبوعي تلقائي لولي الأمر\n- إدارة فصول وطلاب\n- دعم المدرس وولي الأمر\n- مقالات إرشادية وفيديوهات\n\nالباقات:\n- أساسية مجانية: فصل واحد و10 طلاب\n- المدرس المحترف: 199 جنيه شهرياً (فصول أكتر وتقارير أوسع)\n- باقة المؤسسات للمدارس\n\nإزاي تضيف فصل:\nمن لوحة التحكم اضغط إضافة فصل، اكتب اسم الفصل والمدرسة واختر المرحلة العمرية (KG، ابتدائي مبكر، ابتدائي متأخر، إعدادي، ثانوي).\n\nإزاي تضيف طالب:\nافتح الفصل وبعدين إضافة طالب، سجل اسم الطالب وولي الأمر والهاتف والإيميل.\n\nإزاي تعمل تقييم:\nافتح الطالب واختر تقييم يومي، اختار اليوم والتاريخ واملأ الأسئلة السبعة وبعدين احفظ. التقرير بيتولد تلقائي.\n\nالتقارير:\nاليومي بيتسجل بعد كل تقييم. الأسبوعي بيتجمع من التقييمات اليومية وبترسله لولي الأمر من زر إرسال التقرير الأسبوعي.\n\nقواعدك الصارمة:\n1. رد فقط على أسئلة عن أنيس والمنصة والصحة النفسية للطلاب وطريقة الاستخدام والباقات والتقارير والفصول والطلاب. أي سؤال خارج النطاق ده (سياسة، دين، رياضة، تقنية، برمجة، اسم الموديل، مين اللي صنعك، إزاي بتشتغل، أسعار ذهب، أخبار، أسئلة شخصية عنك) ارفضه بهدوء ورد بنفس الصيغة دي تقريباً:\nمعلش، أنا متخصص بس في مساعدة المدرسين وأولياء الأمور بخصوص منصة أنيس والصحة النفسية للطلاب. لو عندك سؤال عن المنصة أو طريقة الاستخدام قولي.\n\n2. متجاوبش أبداً على أسئلة عن نفسك أو التقنية أو اسم الموديل أو إنك AI أو n8n.\n3. لو السؤال بالعربي رد بالعربي، لو بالإنجليزي رد بالإنجليزي.\n4. لو مش متأكد من حاجة جوه المنصة قول بصراحة إنك مش متأكد واقترح يتواصلوا من صفحة تواصل معنا أو يجربوا المنصة.\n5. متخترعش معلومات مش موجودة. لو سأل عن حاجة مش مكتوبة فوق قول إن التفاصيل دي موجودة جوه المنصة بعد التسجيل.\n6. لو المستخدم سلّم أو قال مرحبًا، رد باختصار ودود واسأله عايز مساعدة في إيه.\n7. لو السؤال غامض، اطلب توضيح بسيط بدل ما تفترض.\n8. متطولش في الرد إلا لو المستخدم طلب تفاصيل أكتر.\n\nأسلوب الكلام والتنظيم:\n- ردودك طبيعية زي إنسان بيتكلم، مش روبوت.\n- استخدم لغة يومية مصرية خفيفة أو فصحى بسيطة حسب السؤال.\n- بلاش إيموجي خالص.\n- بلاش ### أو --.\n- خلي الرد منظم وسهل القراءة:\n  - استخدم فقرات قصيرة (سطرين أو تلاتة بالكتير).\n  - لما تشرح خطوات أو نقاط ليها عنوان، اكتب العنوان بين علامتين ** كده:\n\n**1. تسجيل الدخول**\nتدخل على المنصة بحسابك كمدرس.\n\n**2. إضافة فصل**\nمن لوحة التحكم تضغط إضافة فصل وتكتب اسمه والمدرسة والمرحلة العمرية.\n\n  - العنوان بس هو اللي بين ** **، والشرح تحته عادي من غير أي علامات.\n  - بين كل خطوة والتانية سيب سطر فاضي.\n  - متخلّيش الرد كله فقرة واحدة طويلة.\n- خليك مختصر وواضح، ومتستخدمش جمل رسمية زيادة أو تكرارات.\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        480,
+        0
+      ],
+      "id": "162a8764-4303-46f1-b0f6-6a4e024605a0",
+      "name": "Basic LLM Chain",
+      "retryOnFail": true,
+      "alwaysOutputData": true,
+      "waitBetweenTries": 3000
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        240
+      ],
+      "id": "6436456a-3f85-46d4-a1ae-3c5d8c1f5155",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "C0mz9fqs2GhH4NV6",
+          "name": "Google Gemini"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Extract Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Message": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6a7851a9-b1eb-492d-a0af-2c5687e6e63f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d5abfaa60178f35c7bb78ae97b09c035844f7d7ee88e85ec67956532311dfca4"
+  },
+  "nodeGroups": [],
+  "id": "VQrqB7gLoBlVsAGm",
+  "tags": []
+}

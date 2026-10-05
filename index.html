@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>أنيس | منصة الصحة النفسية للطلاب</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      try {
+        var t = localStorage.getItem("anees.theme"),
+          l = localStorage.getItem("anees.lang");
+        if (t) document.documentElement.dataset.theme = JSON.parse(t);
+        if (l) {
+          l = JSON.parse(l);
+          document.documentElement.lang = l;
+          document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+        }
+      } catch (e) {}
+    </script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ========== SITE (Landing) ========== -->
+    <div id="site">
+      <header class="nav" id="nav">
+        <div class="nav-inner">
+          <a class="logo" href="#/" data-link>
+            <img
+              src="Anees-Icon-Light-Transparent.png"
+              alt="أنيس"
+              class="logo-img"
+            />
+            <span>أنيس</span>
+          </a>
+          <nav class="nav-links" id="navLinks"></nav>
+          <div class="nav-right">
+            <div class="nav-actions" id="navActions"></div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              >
+                <path d="M3 6h18M3 12h18M3 18h18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-head">
+          <a class="logo" href="#/" data-link onclick="closeMobile()">
+            <img
+              src="Anees-Icon-Light-Transparent.png"
+              alt="أنيس"
+              class="logo-img"
+            />
+            <span>أنيس</span>
+          </a>
+          <button
+            class="mobile-menu-close"
+            id="mobileMenuClose"
+            aria-label="Close menu"
+            onclick="closeMobile()"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div id="mobileNavLinks"></div>
+        <div class="actions" id="mobileActions"></div>
+      </div>
+      <main id="page"></main>
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-col footer-brand">
+              <a class="logo" href="#/">
+                <img
+                  src="Anees-Icon-Light-Transparent.png"
+                  alt="أنيس"
+                  class="logo-img"
+                />
+                <span>أنيس</span>
+              </a>
+              <p>
+                منصة مصرية بتساعد المدرسين وأولياء الأمور يتابعوا الصحة النفسية
+                للطلاب بشكل علمي ومبسط.
+              </p>
+            </div>
+            <div class="footer-col">
+              <h4>المنصة</h4>
+              <ul>
+                <li><a href="#/pricing" data-link>التسعير</a></li>
+                <li><a href="#/blog" data-link>المدونة</a></li>
+                <li><a href="#/testimonials" data-link>قالوا عنا</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>الشركة</h4>
+              <ul>
+                <li><a href="#/about" data-link>من نحن</a></li>
+                <li><a href="#/contact" data-link>تواصل معنا</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>قانوني</h4>
+              <ul>
+                <li><a href="#">سياسة الخصوصية</a></li>
+                <li><a href="#">الشروط والأحكام</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <span>&copy; 2025 أنيس. جميع الحقوق محفوظة.</span>
+            <span>صُنع في مصر</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ========== DASHBOARD ========== -->
+    <div id="dashboard">
+      <div class="dash-shell">
+        <header class="dash-topbar">
+          <button class="menu-btn icon-btn" id="dashMenuBtn" aria-label="Menu">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+          <a class="logo" href="#/" data-link>
+            <img
+              src="Anees-Icon-Light-Transparent.png"
+              alt="أنيس"
+              class="logo-img"
+            />
+            <span>أنيس</span>
+          </a>
+          <div class="spacer"></div>
+          <div class="top-actions" id="dashTopActions"></div>
+        </header>
+        <div class="dash-body">
+          <aside class="dash-side" id="dashSide"></aside>
+          <div class="dash-overlay" id="dashOverlay"></div>
+          <main class="dash-main" id="dashMain"></main>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modals & Overlays -->
+    <div class="modal-overlay" id="authModal">
+      <div class="modal" id="authModalBody"></div>
+    </div>
+    <div class="modal-overlay" id="genericModal">
+      <div class="modal" id="genericModalBody"></div>
+    </div>
+    <div class="dialog-overlay" id="dialogOverlay">
+      <div class="dialog" id="dialog"></div>
+    </div>
+    <div class="toasts" id="toasts"></div>
+
+    <!-- Chatbot -->
+    <button class="chat-fab" id="chatFab" aria-label="Chat">
+      <img
+        src="Anees-Icon-Light-Transparent.png"
+        alt="أنيس"
+        class="chat-fab-img"
+      />
+    </button>
+    <div class="chat-panel" id="chatPanel">
+      <div class="chat-head">
+        <div class="title"><span class="online"></span> مساعد أنيس الذكي</div>
+        <button
+          class="icon-btn"
+          style="width: 32px; height: 32px"
+          onclick="toggleChat()"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="chat-body" id="chatBody">
+        <div class="chat-msg bot">
+          أهلاً بيك. أنا مساعد أنيس. اسألني أي حاجة عن المنصة أو الصحة النفسية
+          للطلاب.
+        </div>
+      </div>
+      <div class="chat-quick">
+        <button onclick="quickAsk('إزاي أضيف فصل؟')">إزاي أضيف فصل؟</button>
+        <button onclick="quickAsk('الباقات')">الباقات</button>
+        <button onclick="quickAsk('التقارير')">التقارير</button>
+      </div>
+      <div class="chat-input-row">
+        <input
+          id="chatInput"
+          placeholder="اكتب سؤالك..."
+          onkeydown="if (event.key === 'Enter') sendChat();"
+        />
+        <button onclick="sendChat()">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m22 2-7 20-4-9-9-4Z" />
+            <path d="M22 2 11 13" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

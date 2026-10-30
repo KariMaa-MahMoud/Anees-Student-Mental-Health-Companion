@@ -1,5 +1,5 @@
 const CONFIG = {
-  N8N_CHAT: "https://c3a73d21.kube-ops.com/webhook/anees-chat",
+  N8N_CHAT: "https://anees1.app.n8n.cloud/webhook/anees-chat",
   N8N_ASSESSMENT: "https://anees1.app.n8n.cloud/webhook/anees-assessment",
   USE_N8N: true,
 };

@@ -1,6 +1,6 @@
 const CONFIG = {
-  N8N_CHAT: "https://anees1.app.n8n.cloud/webhook/anees-chat",
-  N8N_ASSESSMENT: "https://anees1.app.n8n.cloud/webhook/anees-assessment",
+  N8N_CHAT: "https://anees2.app.n8n.cloud/webhook/anees-chat",
+  N8N_ASSESSMENT: "https://anees2.app.n8n.cloud/webhook/anees-assessment",
   USE_N8N: true,
 };
 /* ============================================================
